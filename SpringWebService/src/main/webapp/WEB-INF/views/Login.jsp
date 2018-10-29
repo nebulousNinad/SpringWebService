@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>
-	User Register
+	User Login
 </h1>
 
 <c:url var="addAction" value="/loginuser" ></c:url>

@@ -1,9 +1,12 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.aspectj.org.eclipse.jdt.internal.core.CreateInitializerOperation;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,14 +14,21 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.entities.Product;
+import com.spring.entities.ProductList;
 import com.spring.entities.User;
 
 @Controller
@@ -37,6 +47,34 @@ public class LoginController {
 		
 		return mav;
 	}
+	
+	
+	@RequestMapping(value ="/rest" , method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	public @ResponseBody Product getProd()
+	{
+		System.out.println("I am getting product....:-)");
+		//List<Product> prodlist = new ArrayList<Product>();
+		Product p = new Product(1, "maggi",50 , "food");
+		
+		
+		return p;
+	}
+	
+	
+/*@RequestMapping(value ="/rest1")
+	
+	public @ResponseBody Product getProd1()
+	{
+		System.out.println("I am getting produc 1)");
+		//List<Product> prodlist = new ArrayList<Product>();
+		Product p = new Product(1, "maggi",50 , "food");
+		
+		
+		return p;
+	}*/
+	
+	
 	
 	@RequestMapping("/registeruser")
 	public  ModelAndView registerUser(@ModelAttribute("user") User user)
@@ -60,12 +98,14 @@ public class LoginController {
 		return "Login";
 	}
 	
+	
 	@RequestMapping("/loginuser")
 	public  ModelAndView loginUser(@RequestParam Map<String,String>reqpar )
 	{
 		String uname=reqpar.get("userName");
 		String pass=reqpar.get("userPassword");
-		System.out.println(uname);
+		System.out.println("userName "+uname);
+		System.out.println("userPassword"+pass);
 		Session s=sf.openSession();
 		Criteria cr = s.createCriteria(User.class);
 		cr.add(Restrictions.eq("userName", uname));
@@ -76,9 +116,18 @@ public class LoginController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("success");
 			mav.setViewName("Login");
-			RestTemplate rest=new RestTemplate();
-			List<Product>list=rest.getForObject("http://localhost:9090/restws/rest/products",List.class);
-			System.out.println(list);
+			RestTemplate restTemplate=new RestTemplate();
+			
+			
+			///Product p=restTemplate.getForObject("http://localhost:8080/restws/rest/products",Product.class);
+			//System.out.println(p);
+			String str =restTemplate.getForObject("http://localhost:8080/restws/rest/products",String.class);
+			System.out.println(str);
+			
+			Product p = restTemplate.getForObject("http://localhost:8080/SpringWebService/rest", Product.class);
+			System.out.println(p);
+			//exchange code		
+			
 			return mav;
 			
 		}

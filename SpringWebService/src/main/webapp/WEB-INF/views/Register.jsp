@@ -30,8 +30,7 @@
 			</form:label>
 		</td>
 		<td>
-			<form:input path="userName" readonly="false" size="8"  disabled="false" />
-			<form:hidden path="userName" />
+			<form:input path="userName" />
 		</td> 
 	</tr>
 	
