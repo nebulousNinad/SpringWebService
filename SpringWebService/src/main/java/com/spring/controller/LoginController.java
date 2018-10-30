@@ -51,7 +51,7 @@ public class LoginController {
 	
 	@RequestMapping(value ="/rest" , method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	
-	public @ResponseBody Product getMyProd()
+	public @ResponseBody Product getProd()
 	{
 		System.out.println("I am getting product....:-)");
 		//List<Product> prodlist = new ArrayList<Product>();
@@ -61,8 +61,10 @@ public class LoginController {
 		return p;
 	}
 	
+	// creating conflict
 	
-/*@RequestMapping(value ="/rest1")
+	
+@RequestMapping(value ="/restone")
 	
 	public @ResponseBody Product getProd1()
 	{
@@ -72,7 +74,7 @@ public class LoginController {
 		
 		
 		return p;
-	}*/
+	}
 	
 	
 	
