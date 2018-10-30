@@ -51,7 +51,7 @@ public class LoginController {
 	
 	@RequestMapping(value ="/rest" , method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	
-	public @ResponseBody Product getProd()
+	public @ResponseBody Product getMyProd()
 	{
 		System.out.println("I am getting product....:-)");
 		//List<Product> prodlist = new ArrayList<Product>();
