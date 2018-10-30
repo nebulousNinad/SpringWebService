@@ -61,8 +61,10 @@ public class LoginController {
 		return p;
 	}
 	
+	// creating conflict
 	
-/*@RequestMapping(value ="/rest1")
+	
+@RequestMapping(value ="/restone")
 	
 	public @ResponseBody Product getProd1()
 	{
@@ -72,7 +74,7 @@ public class LoginController {
 		
 		
 		return p;
-	}*/
+	}
 	
 	
 	
