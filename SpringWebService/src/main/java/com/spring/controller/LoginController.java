@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.aspectj.org.eclipse.jdt.internal.core.CreateInitializerOperation;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.Criteria;
@@ -31,25 +32,33 @@ import com.spring.entities.Product;
 import com.spring.entities.ProductList;
 import com.spring.entities.User;
 
+
+
+
 @Controller
 public class LoginController {
 	
 	@Autowired
 	 SessionFactory sf;
 	
+	private static final Logger logger = Logger.getLogger(LoginController.class);
+	
+	
 	@RequestMapping("/register")
 	public  ModelAndView message()
 	{
+		logger.debug("register is executed!");
+		logger.warn("WArning Dont enter..");
+		
 		System.out.println("I am here....:-)");
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("user",new User());
-		mav.setViewName("Register");
-		
+		mav.setViewName("Register");	
 		return mav;
 	}
 	
 	
-	@RequestMapping(value ="/rest" , method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ="/rest" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	
 	public @ResponseBody Product getProd()
 	{
@@ -64,15 +73,13 @@ public class LoginController {
 	// creating conflict
 	
 	
-@RequestMapping(value ="/restone")
+@RequestMapping(value ="/restone" , produces = {"text/xml","application/json"}  ) //{MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}  ,  produces = "application/xml" 
 	
 	public @ResponseBody Product getProd1()
 	{
 		System.out.println("I am getting produc 1)");
 		//List<Product> prodlist = new ArrayList<Product>();
-		Product p = new Product(1, "maggi",50 , "food");
-		
-		
+		Product p = new Product(1, "maggi",50 , "food");		
 		return p;
 	}
 	
@@ -108,6 +115,9 @@ public class LoginController {
 		String pass=reqpar.get("userPassword");
 		System.out.println("userName "+uname);
 		System.out.println("userPassword"+pass);
+		
+		
+		
 		Session s=sf.openSession();
 		Criteria cr = s.createCriteria(User.class);
 		cr.add(Restrictions.eq("userName", uname));

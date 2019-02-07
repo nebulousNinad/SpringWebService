@@ -6,7 +6,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 
 
-//@XmlRootElement
+@XmlRootElement
 @JsonSerialize
 public class Product {
 	private int productId;
@@ -42,9 +42,9 @@ public class Product {
 		return "\nProduct [productId=" + productId + ", productName=" + productName + ", productPrice=" + productPrice
 				+ ", productCategory=" + productCategory + "]";
 	}
-	public Product(int productId, String productName, int productPrice, String productCategory) {
+	public Product( String productName, int productPrice, String productCategory) {
 		super();
-		this.productId = productId;
+		
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productCategory = productCategory;
@@ -52,6 +52,13 @@ public class Product {
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Product(int i, String string, int j, String string2) {
+		this.productId=i;
+		this.productName = string;
+		this.productPrice = j;
+		this.productCategory = string2;
+		
 	}
 	
 	
